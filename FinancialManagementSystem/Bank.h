@@ -130,7 +130,7 @@ public:
 			}
 		}
 		save.close();
-		std::cout << "File is save" << std::endl;
+		std::cout << "Successfully!" << std::endl;
 	}
 
 	~Bank() {
