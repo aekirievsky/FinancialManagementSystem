@@ -7,25 +7,16 @@ class Categories
 public:
 	double sum;
 	std::string date;
+	std::string name;
 
-	Categories(double sum_p, char* date_p) : sum{ sum_p } {
+	Categories(double sum_p, std::string date_p) : sum{ sum_p } {
 
-		this->date += date_p;
+		this->date = date_p;
 	}
 	std::string getDate() {
 		return date;
 	}
-	std::string getName() { return ""; };
-
-	friend std::ostream& operator<<(std::ostream& out, const Categories& other) {
-		out << other.sum << " " << other.date;
-		return out;
-	}
-
-	friend std::istream& operator>>(std::istream& input, Categories& other) {
-		input >> other.sum;
-		return input;
-	}
+	std::string getName() { return name; }
 
 	~Categories() = default;
 };
@@ -33,16 +24,8 @@ public:
 class Products :public Categories
 {
 public:
-	Products() = default;
-	Products(double sum_p, char* date_p) :Categories(sum_p, date_p) {}
-
-	std::string getName() {
-		return "Products";
-	}
-
-	friend std::istream& operator>>(std::istream& input, Products& other) {
-		input >> other.sum;
-		return input;
+	Products(double sum_p, std::string date_p) :Categories(sum_p, date_p) {
+		this->name = "Products";
 	}
 
 	~Products() = default;
@@ -51,11 +34,8 @@ public:
 class Gasoline : public Categories
 {
 public:
-	Gasoline() = default;
-	Gasoline(double sum_p, char* date_p) :Categories(sum_p, date_p) {}
-
-	std::string getName() {
-		return "Gasoline";
+	Gasoline(double sum_p, std::string date_p) :Categories(sum_p, date_p) {
+		this->name = "Gasoline";
 	}
 
 	~Gasoline() = default;
@@ -64,23 +44,18 @@ public:
 class CommunalServices : public Categories
 {
 public:
-	CommunalServices() = default;
-	CommunalServices(double sum_p, char* date_p) : Categories(sum_p, date_p) {}
-
-	std::string getName() {
-		return "Communal Services";
+	CommunalServices(double sum_p, std::string date_p) : Categories(sum_p, date_p) {
+		this->name = "Communal Services";
 	}
+
 
 	~CommunalServices() = default;
 };
 
 class Debet :public Categories {
 public:
-	Debet() = default;
-	Debet(double sum_p, char* date_p) : Categories(sum_p, date_p) {}
-
-	std::string getName() {
-		return "Debet";
+	Debet(double sum_p, std::string date_p) : Categories(sum_p, date_p) {
+		this->name = "Debet";
 	}
 
 	~Debet() = default;

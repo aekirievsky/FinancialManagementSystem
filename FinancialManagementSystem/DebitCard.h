@@ -11,7 +11,7 @@ public:
 		unsigned short cardNumber_p[16]
 	) : Card(cardHolder_p, cardNumber_p) {}
 
-	friend std::ostream& operator<<(std::ostream& out, const DebitCard& other) {
+	/*friend std::ostream& operator<<(std::ostream& out, const DebitCard& other) {
 		out << (Card)other;
 		return out;
 	}
@@ -26,7 +26,7 @@ public:
 			input >> other.cardNumber[i];
 		}
 		return input;
-	}
+	}*/
 
 	~DebitCard() = default;
 };

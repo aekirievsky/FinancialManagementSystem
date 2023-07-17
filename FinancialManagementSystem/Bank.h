@@ -4,6 +4,7 @@
 #include"Card.h"
 #include<vector>
 #include<ctime>
+#include <fstream>
 #pragma warning(disable:4996)
 
 class Bank
@@ -25,8 +26,11 @@ public:
 	void showBankInformation() {
 		std::cout << "Bank name: " << this->bankName << std::endl
 			<< "Information about cards:" << std::endl;
+		int i{};
 		for (auto& el : cards) {
-			std::cout << el << std::endl;
+			std::cout << "Card: " << i + 1 << std::endl
+				<< el << std::endl;
+			i++;
 		}
 	}
 
@@ -38,8 +42,8 @@ public:
 		this->cards.erase(cards.begin() + index);
 	}
 
-	char* getDate() {
-		std::time_t rawtime;
+	std::string getDate() {
+		/*std::time_t rawtime;
 		std::tm* timeinfo;
 		char buffer[80];
 
@@ -47,13 +51,17 @@ public:
 		timeinfo = std::localtime(&rawtime);
 
 		std::strftime(buffer, 80, "%Y-%m-%d", timeinfo);
-		return buffer;
+		std::puts(buffer);*/
+		std::cout << "Enter date in format Y-M-D: ";
+		std::string date;
+		std::cin >> date;
+		return date;
 	}
 
 	void pushDebetCards(int index) {
 		int key{};
 		double sum{};
-		char* date;
+		std::string date;
 		std::cout << "Enter sum: ";
 		std::cin >> sum;
 		date = getDate();
@@ -64,27 +72,30 @@ public:
 			<< "3 - Communal Services" << std::endl
 			<< "Choice categories: ";
 		std::cin >> key;
-
+		Products products(sum, date);
+		Gasoline gasoline(sum, date);
+		CommunalServices comServ(sum, date);
 		switch (key) {
 		case 1:
-			cards[index].pushDebet(Products(sum, date));
+			cards[index].pushDebet(products);
 			break;
 		case 2:
-			cards[index].pushDebet(Gasoline(sum, date));
+			cards[index].pushDebet(gasoline);
 			break;
 		case 3:
-			cards[index].pushDebet(CommunalServices(sum, date));
+			cards[index].pushDebet(comServ);
 			break;
 		}
 	}
 
 	void pushCreditCards(int index) {
 		double sum{};
-		char* date;
+		//std::string date;
 		std::cout << "Enter sum: ";
 		std::cin >> sum;
-		date = getDate();
-		cards[index].pushCredits(Debet(sum, date));
+		//date = getDate();
+		Debet deb(sum, "");
+		cards[index].pushCredits(deb);
 	}
 
 	void getCostReport(int index, std::string startDate, std::string endDate) {
@@ -95,6 +106,32 @@ public:
 		cards[index].costRating(startDate, endDate);
 	}
 
+	void getCardBalance(int index) {
+		double bal = cards[index].getBalance();
+		std::cout << "Balance = " << bal << std::endl;
+	}
+
+	void saveToFile() {
+		/*std::string startDate{}, endDate{};
+		showBankInformation();
+		cout << "Enter start date in format Y-M-D: ";
+		cin >> startDate;
+		cout << "Enter end date in format Y-M-D: ";
+		cin >> endDate;*/
+
+		std::ofstream save;
+		save.open("Report and Raiting.txt");
+		if (save.is_open()) {
+			save << bankName << std::endl;
+			for (int i = 0; i < cards.size(); i++)
+			{
+				save << cards[i] << std::endl;
+				//<< cards[i].costRating(startDate, endDate) << std::endl;
+			}
+		}
+		save.close();
+		std::cout << "File is save" << std::endl;
+	}
 
 	~Bank() {
 		cards.clear();

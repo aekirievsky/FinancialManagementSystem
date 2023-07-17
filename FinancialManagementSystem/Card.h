@@ -6,6 +6,10 @@
 #include<map>
 #include<algorithm>
 
+using std::numeric_limits;
+using std::streamsize;
+
+
 class Card
 {
 protected:
@@ -26,7 +30,7 @@ public:
 		for (int i = 0; i < 16; i++)
 		{
 			out << other.cardNumber[i];
-			if (i % 3 == 0) {
+			if ((i + 1) % 4 == 0 && i != 0) {
 				out << " ";
 			}
 		}
@@ -39,12 +43,34 @@ public:
 		input.ignore();
 		std::getline(input, other.cardHolder);
 		std::cout << "Enter card number: ";
+
 		for (int i = 0; i < 16; i++)
 		{
-			input >> other.cardNumber[i];
+			char number = std::cin.get();
+			if (number != ' ')
+			{
+				other.cardNumber[i] = number - '0';
+			}
+			else {
+				i--;
+			}
 		}
+
+		std::cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
 		return input;
 	}
+
+	/*void putCardInformation() {
+		std::cout << "Enter card holder: ";
+		std::cin.ignore();
+		std::getline(std::cin, cardHolder);
+		std::cout << "Enter card number: ";
+		for (int i = 0; i < 16; i++)
+		{
+			std::cin >> cardNumber[i];
+		}
+	}*/
 
 	double getBalance() {
 		double credit{}, debet{};
@@ -92,7 +118,7 @@ public:
 			return l.second > r.second;
 			});
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			std::cout << result[i].first << " " << result[i].second << std::endl;
 		}
