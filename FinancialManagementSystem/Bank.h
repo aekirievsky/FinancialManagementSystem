@@ -112,12 +112,17 @@ public:
 	}
 
 	void saveToFile() {
-		/*std::string startDate{}, endDate{};
+		Card card;
+		std::string startDate{}, endDate{};
 		showBankInformation();
-		cout << "Enter start date in format Y-M-D: ";
-		cin >> startDate;
-		cout << "Enter end date in format Y-M-D: ";
-		cin >> endDate;*/
+		std::cout << "Enter start date in format Y-M-D: ";
+		std::cin >> startDate;
+		std::cout << "Enter end date in format Y-M-D: ";
+		std::cin >> endDate;
+		std::vector<std::pair<std::string, double>> res1;
+		std::vector<std::pair<std::string, double>> res2;
+		res1 = card.saveToFileCostRating(startDate, endDate);
+		res2 = card.saveToFileCostReport(startDate, endDate);
 
 		std::ofstream save;
 		save.open("Report and Raiting.txt");
@@ -126,7 +131,18 @@ public:
 			for (int i = 0; i < cards.size(); i++)
 			{
 				save << cards[i] << std::endl;
-				//<< cards[i].costRating(startDate, endDate) << std::endl;
+
+			}
+			save << "Cost Raiting:" << std::endl;
+			for (int i = 0; i < res1.size(); i++)
+			{
+				save << res1[i].first << " " << res1[i].second << std::endl;
+
+			}
+			save << "Cost Report" << std::endl;
+			for (int i = 0; i < res2.size(); i++)
+			{
+				save << res2[i].first << " " << res2[i].second << std::endl;
 			}
 		}
 		save.close();

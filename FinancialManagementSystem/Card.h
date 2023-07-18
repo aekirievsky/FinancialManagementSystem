@@ -153,6 +153,64 @@ public:
 		}
 	}
 
+	std::vector<std::pair<std::string, double>> saveToFileCostRating(std::string startDate, std::string endDate) {
+		std::map<std::string, double> report;
+		for (int i = 0; i < debets.size(); i++)
+		{
+			if (debets[i].getDate() >= startDate and debets[i].getDate() <= endDate) {
+				if (report.find(debets[i].getName()) == report.end()) {
+					report[debets[i].getName()] = debets[i].sum;
+				}
+				else
+				{
+					report[debets[i].getName()] += debets[i].sum;
+				}
+			}
+		}
+
+		std::vector<std::pair<std::string, double>> result;
+		std::copy(report.begin(), report.end(), std::back_inserter < std::vector<std::pair<std::string, double>>>(result));
+
+		std::sort(result.begin(), result.end(), [](const std::pair<std::string, double>& l, const std::pair < std::string, double>& r) {
+			return l.second > r.second;
+			});
+
+		for (int i = 0; i < 3; i++)
+		{
+			std::cout << result[i].first << " " << result[i].second << std::endl;
+		}
+		return result;
+	}
+
+	std::vector<std::pair<std::string, double>> saveToFileCostReport(std::string startDate, std::string endDate) {
+		std::map<std::string, double> report;
+		for (int i = 0; i < debets.size(); i++)
+		{
+			if (debets[i].getDate() >= startDate and debets[i].getDate() <= endDate) {
+				if (report.find(debets[i].getName()) == report.end()) {
+					report[debets[i].getName()] = debets[i].sum;
+				}
+				else
+				{
+					report[debets[i].getName()] += debets[i].sum;
+				}
+			}
+		}
+
+		std::vector<std::pair<std::string, double>> result;
+		std::copy(report.begin(), report.end(), std::back_inserter < std::vector<std::pair<std::string, double>>>(result));
+
+		std::sort(result.begin(), result.end(), [](const std::pair<std::string, double>& l, const std::pair < std::string, double>& r) {
+			return l.second > r.second;
+			});
+
+		for (int i = 0; i < result.size(); i++)
+		{
+			std::cout << result[i].first << " " << result[i].second << std::endl;
+		}
+		return result;
+	}
+
 	/*void clearCard() {
 		cardHolder.clear();
 		delete[] cardNumber;
