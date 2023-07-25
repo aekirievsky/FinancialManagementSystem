@@ -175,10 +175,10 @@ public:
 			return l.second > r.second;
 			});
 
-		for (int i = 0; i < 3; i++)
+		/*for (int i = 0; i < 3; i++)
 		{
 			std::cout << result[i].first << " " << result[i].second << std::endl;
-		}
+		}*/
 		return result;
 	}
 
@@ -204,10 +204,10 @@ public:
 			return l.second > r.second;
 			});
 
-		for (int i = 0; i < result.size(); i++)
+		/*for (int i = 0; i < result.size(); i++)
 		{
 			std::cout << result[i].first << " " << result[i].second << std::endl;
-		}
+		}*/
 		return result;
 	}
 

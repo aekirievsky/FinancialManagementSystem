@@ -1,0 +1,11 @@
+bank
+Card holder: art
+Card number: 1111 1111 1111 1111 
+Cost Raiting:
+Communal Services 600
+Gasoline 200
+Products 100
+Cost Report:
+Communal Services 600
+Gasoline 200
+Products 100

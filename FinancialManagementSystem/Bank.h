@@ -112,15 +112,20 @@ public:
 	}
 
 	void saveToFile() {
-		Card card;
-		std::string startDate{}, endDate{};
 		showBankInformation();
+		int index{};
+		std::cout << "Enter index card: ";
+		std::cin >> index;
+		index--;
+		Card card = cards[index];
+		std::string startDate{}, endDate{};
 		std::cout << "Enter start date in format Y-M-D: ";
 		std::cin >> startDate;
 		std::cout << "Enter end date in format Y-M-D: ";
 		std::cin >> endDate;
 		std::vector<std::pair<std::string, double>> res1;
 		std::vector<std::pair<std::string, double>> res2;
+
 		res1 = card.saveToFileCostRating(startDate, endDate);
 		res2 = card.saveToFileCostReport(startDate, endDate);
 
@@ -139,7 +144,7 @@ public:
 				save << res1[i].first << " " << res1[i].second << std::endl;
 
 			}
-			save << "Cost Report" << std::endl;
+			save << "Cost Report:" << std::endl;
 			for (int i = 0; i < res2.size(); i++)
 			{
 				save << res2[i].first << " " << res2[i].second << std::endl;
